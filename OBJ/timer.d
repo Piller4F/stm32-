@@ -8,3 +8,7 @@
 ..\obj\timer.o: ..\HARDWARE\8x8led\88led.h
 ..\obj\timer.o: ..\USER\car.h
 ..\obj\timer.o: ..\HARDWARE\remote\remote.h
+..\obj\timer.o: ..\HARDWARE\echo\echo.h
+..\obj\timer.o: ..\SYSTEM\delay\delay.h
+..\obj\timer.o: ..\SYSTEM\usart\usart.h
+..\obj\timer.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h

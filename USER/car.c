@@ -3,6 +3,10 @@
 #include "88led.h"
 #include "tb6612.h"
 #include "delay.h"
+#include "echo.h"
+#include <time.h>
+#include "stdlib.h"
+#include "usart.h"
 
 Car car; 
 
@@ -45,6 +49,53 @@ void Car_Check(void) {
 	GO_Right();
 	LSPEED=car.left_speed=MAX_SPEED*0.5;
 	RSPEED=car.right_speed=MAX_SPEED*0.5;
+}
+
+void Echo_Car(void) {
+	double distance;
+	int dir;
+	LSPEED=car.left_speed=MAX_SPEED*0.5;
+	RSPEED=car.right_speed=MAX_SPEED*0.5;
+	while(1) {
+		car.key=(KEY)Remote_Scan();
+		if(car.key==POWER) {
+			car.status=CHOOSE;
+			Car_Init();
+			return;
+		}
+		dir=rand()%2;
+		Trig=1;
+		delay_us(20);
+		Trig=0;
+		if(TIM2_CAP_STA&0x8000) {
+			distance=TIM2_CAP_VAL;
+			distance+=65536*(TIM2_CAP_STA&0x3FFF);
+			distance/=1000000.0;
+			distance=distance*17000;
+			printf("%f cm \r\n",distance);
+			TIM2_CAP_STA=0;
+			if(distance<=20) {
+				LSPEED=MAX_SPEED*0.7;
+			    RSPEED=MAX_SPEED*0.7;
+				//car.status=GOBACK;
+				GO_Back();
+				delay_ms(100);
+				if(dir) {
+					car.status=GORIGHT;
+					GO_Right();
+				} else {
+					car.status=GOLEFT;
+					GO_Left();
+				}
+				delay_ms(500);
+				LSPEED=MAX_SPEED*0.5;
+				RSPEED=MAX_SPEED*0.5;
+			} else {
+				car.status=GOUP;
+				GO_Sharp();
+			}
+		}
+	}
 }
 
 void Remote_Car(void) { 
@@ -116,6 +167,8 @@ void Change_Status(void) {
 			delay_ms(200);
 			BUZZER=0;
 			car.status=AVOID;
+			printf("123\r\r\n");
+			Echo_Car();
 			break;
 		case THREE:
 			if(car.status!=CHOOSE) break;

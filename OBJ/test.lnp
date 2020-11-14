@@ -4,6 +4,7 @@
 "..\obj\88led.o"
 "..\obj\buzzer.o"
 "..\obj\timer.o"
+"..\obj\echo.o"
 "..\obj\test.o"
 "..\obj\car.o"
 "..\obj\delay.o"

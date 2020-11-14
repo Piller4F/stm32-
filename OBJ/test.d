@@ -13,3 +13,4 @@
 ..\obj\test.o: ..\HARDWARE\8x8led\88led.h
 ..\obj\test.o: ..\HARDWARE\ubzzer\buzzer.h
 ..\obj\test.o: ..\HARDWARE\timer\timer.h
+..\obj\test.o: ..\HARDWARE\echo\echo.h

@@ -10,3 +10,8 @@
 ..\obj\car.o: ..\HARDWARE\8x8led\88led.h
 ..\obj\car.o: ..\HARDWARE\tb6612\tb6612.h
 ..\obj\car.o: ..\SYSTEM\delay\delay.h
+..\obj\car.o: ..\HARDWARE\echo\echo.h
+..\obj\car.o: D:\MDK5\ARM\ARMCC\Bin\..\include\time.h
+..\obj\car.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\car.o: ..\SYSTEM\usart\usart.h
+..\obj\car.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h

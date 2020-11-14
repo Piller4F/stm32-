@@ -1,6 +1,9 @@
 #include "timer.h"
 #include "88led.h"
 #include "car.h"
+#include "echo.h"
+#include "delay.h"
+#include "usart.h"
 
 extern int led[8];       //列
 extern int line[8];      //行
@@ -9,6 +12,10 @@ extern int picture[8][8];//图案
 void TIM3_IRQHandler(void){ 
 	static u8 j=0;
 	u8 i;
+	//	Trig=!Trig;
+	//	printf("1");
+	//	delay_us(20);
+	//	Trig=0;
 	if(TIM3->SR&0X0001)//溢出中断
 	{
 		for(i=0;i<8;++i) {

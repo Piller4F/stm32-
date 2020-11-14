@@ -7,6 +7,7 @@
 #include "88led.h"
 #include "buzzer.h"
 #include "timer.h"
+#include "echo.h"
 
 int main() {
 	Stm32_Clock_Init(9);         //系统时钟初始化
@@ -16,19 +17,20 @@ int main() {
 	Remote_Init();               //红外按键初始化
 	Tb6612_Init();               //电机驱动模块初始化
 	LED_Init();                  //8*8点阵LED初始化
+	Echo_Init();                 //超声波初始化
 	Buzzer_Init();               //蜂鸣器初始化
     Tim4_Pwm_Init(MAX_SPEED,0);  //配置pwm
     TIM3_Int_Init(10,7199);	 //88led刷新率初始化
+	Tim2_Cap_Init(65535,72);
 	while(1) {
 		Change_Status();
 		if(car.status==CHOOSE) {
 			Car_Init();
 			continue;
 		}
-		printf("%d\r\n",car.status);
+		//printf("%d\r\n",car.status);
 	}
 }
-
 
 
 
