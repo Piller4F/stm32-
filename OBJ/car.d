@@ -1,0 +1,12 @@
+..\obj\car.o: car.c
+..\obj\car.o: car.h
+..\obj\car.o: ..\HARDWARE\remote\remote.h
+..\obj\car.o: ..\SYSTEM\sys\sys.h
+..\obj\car.o: ..\SYSTEM\sys\stm32f10x.h
+..\obj\car.o: ..\SYSTEM\sys\core_cm3.h
+..\obj\car.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\car.o: ..\SYSTEM\sys\system_stm32f10x.h
+..\obj\car.o: ..\HARDWARE\ubzzer\buzzer.h
+..\obj\car.o: ..\HARDWARE\8x8led\88led.h
+..\obj\car.o: ..\HARDWARE\tb6612\tb6612.h
+..\obj\car.o: ..\SYSTEM\delay\delay.h

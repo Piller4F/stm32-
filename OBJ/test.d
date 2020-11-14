@@ -8,3 +8,8 @@
 ..\obj\test.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\test.o: ..\SYSTEM\delay\delay.h
 ..\obj\test.o: ..\HARDWARE\remote\remote.h
+..\obj\test.o: car.h
+..\obj\test.o: ..\HARDWARE\tb6612\tb6612.h
+..\obj\test.o: ..\HARDWARE\8x8led\88led.h
+..\obj\test.o: ..\HARDWARE\ubzzer\buzzer.h
+..\obj\test.o: ..\HARDWARE\timer\timer.h

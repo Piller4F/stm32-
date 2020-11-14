@@ -1,6 +1,11 @@
 --cpu Cortex-M3
 "..\obj\remote.o"
+"..\obj\tb6612.o"
+"..\obj\88led.o"
+"..\obj\buzzer.o"
+"..\obj\timer.o"
 "..\obj\test.o"
+"..\obj\car.o"
 "..\obj\delay.o"
 "..\obj\sys.o"
 "..\obj\usart.o"
