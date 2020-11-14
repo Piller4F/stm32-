@@ -564,14 +564,14 @@ ARM Macro Assembler    Page 9
               00000200 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=..\obj\startup_stm32f10x_hd.d -o..\obj\startup_stm32f10x_hd.o -ID:
-\Desktop\×¿Ô½°à¹¤×÷ÎÄ¼ş\18¼¶µçÈüÑµÁ·\18¼¶2020ÄêÇï¼¾ÅàÑµ\µÚÈıÖÜ\Ê¯¹úÇ¿×é\Ê¯¹úÇ¿\
-STM32_ÖÇÄÜĞ¡³µver0.1\USER\RTE -ID:\Desktop\×¿Ô½°à¹¤×÷ÎÄ¼ş\18¼¶µçÈüÑµÁ·\18¼¶2020
-ÄêÇï¼¾ÅàÑµ\µÚÈıÖÜ\Ê¯¹úÇ¿×é\Ê¯¹úÇ¿\STM32_ÖÇÄÜĞ¡³µver0.1\USER\RTE\Device\STM32F10
-3RC -ID:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include -ID:\MDK5\ARM\CM
-SIS\Include --predefine="__UVISION_VERSION SETA 514" --predefine="_RTE_ SETA 1"
- --predefine="STM32F10X_HD SETA 1" --list=.\listings\startup_stm32f10x_hd.lst R
-TE\Device\STM32F103RC\startup_stm32f10x_hd.s
+ork --depend=..\obj\startup_stm32f10x_hd.d -o..\obj\startup_stm32f10x_hd.o -I"D
+:\Desktop\×¿Ô½°à¹¤×÷ÎÄ¼ş\18¼¶µçÈüÑµÁ·\18¼¶2020ÄêÇï¼¾ÅàÑµ\µÚÈıÖÜ\Ê¯¹úÇ¿×é\Ê¯¹úÇ¿
+\STM32_ÖÇÄÜĞ¡³µver0.1 - ¸±±¾\USER\RTE" -I"D:\Desktop\×¿Ô½°à¹¤×÷ÎÄ¼ş\18¼¶µçÈüÑµÁ
+·\18¼¶2020ÄêÇï¼¾ÅàÑµ\µÚÈıÖÜ\Ê¯¹úÇ¿×é\Ê¯¹úÇ¿\STM32_ÖÇÄÜĞ¡³µver0.1 - ¸±±¾\USER\RT
+E\Device\STM32F103RC" -ID:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Includ
+e -ID:\MDK5\ARM\CMSIS\Include --predefine="__UVISION_VERSION SETA 514" --predef
+ine="_RTE_ SETA 1" --predefine="STM32F10X_HD SETA 1" --list=.\listings\startup_
+stm32f10x_hd.lst RTE\Device\STM32F103RC\startup_stm32f10x_hd.s
 
 
 
