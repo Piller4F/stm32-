@@ -7,6 +7,7 @@
 #include <time.h>
 #include "stdlib.h"
 #include "usart.h"
+#include "pid.h"
 
 Car car; 
 
@@ -51,6 +52,48 @@ void Car_Check(void) {
 	RSPEED=car.right_speed=MAX_SPEED*0.5;
 }
 
+void Car_Position_Pid() {
+	double t,k;
+	PID pid;
+	pid.kp=1.2;
+	pid.ki=0.0;
+	pid.kd=1.0;
+	LSPEED=RSPEED=MAX_SPEED;
+	while(1) {
+		car.key=(KEY)Remote_Scan();
+		if(car.key==POWER) {
+			car.status=CHOOSE;
+			Car_Init();
+			return;
+		}
+		Trig=1;
+		delay_us(20);
+		Trig=0;
+		if(TIM2_CAP_STA&0x8000) {
+			t=TIM2_CAP_VAL;
+			t+=65536*(TIM2_CAP_STA&0x3FFF);
+			t/=1000000.0;
+			t=t*17000;
+			 printf("%f cm \r\n",t);
+			TIM2_CAP_STA=0;
+			if(t>=14&&t<16) t=15;
+			k=PositionPID(15.0-t,pid);
+			if(k>0) {
+				car.status=GOBACK;
+				GO_Back();
+				LSPEED=RSPEED=MAX_SPEED*k;
+			} else if(k<0) {
+				car.status=GOUP;
+				GO_Sharp();
+				LSPEED=RSPEED=-1*MAX_SPEED*k;
+			} else {
+				car.status=POSITION_PID;
+				LSPEED=RSPEED=MAX_SPEED*k;
+			}
+		}
+	}
+}
+
 void Echo_Car(void) {
 	double distance;
 	int dir;
@@ -87,7 +130,7 @@ void Echo_Car(void) {
 					car.status=GOLEFT;
 					GO_Left();
 				}
-				delay_ms(500);
+				delay_ms(300);
 				LSPEED=MAX_SPEED*0.5;
 				RSPEED=MAX_SPEED*0.5;
 			} else {
@@ -183,6 +226,7 @@ void Change_Status(void) {
 			delay_ms(200);
 			BUZZER=0;
 			car.status=SEARCH_PID;
+		
 			break;
 		case FIVE:
 			if(car.status!=CHOOSE) break;
@@ -190,6 +234,7 @@ void Change_Status(void) {
 			delay_ms(200);
 			BUZZER=0;
 			car.status=POSITION_PID;
+			Car_Position_Pid();
 			break;
 	}
 }

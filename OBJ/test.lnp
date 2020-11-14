@@ -5,6 +5,7 @@
 "..\obj\buzzer.o"
 "..\obj\timer.o"
 "..\obj\echo.o"
+"..\obj\pid.o"
 "..\obj\test.o"
 "..\obj\car.o"
 "..\obj\delay.o"

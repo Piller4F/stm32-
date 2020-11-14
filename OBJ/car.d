@@ -15,3 +15,4 @@
 ..\obj\car.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\obj\car.o: ..\SYSTEM\usart\usart.h
 ..\obj\car.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\car.o: ..\HARDWARE\pid\pid.h
