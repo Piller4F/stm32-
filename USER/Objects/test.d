@@ -8,3 +8,4 @@
 .\objects\test.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\test.o: ..\SYSTEM\delay\delay.h
 .\objects\test.o: ..\HARDWARE\iic\iic.h
+.\objects\test.o: ..\HARDWARE\mpu6050\mpu6050.h
