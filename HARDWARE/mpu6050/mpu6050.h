@@ -4,6 +4,14 @@
 #include "sys.h"
 #include "iic.h"
 
+#define X_ACCEL_OFFSET  930
+#define Y_ACCEL_OFFSET  60
+#define Z_ACCEL_OFFSET  70
+
+#define X_GYRO_OFFSET   41
+#define Y_GYRO_OFFSET   -12
+#define Z_GYRO_OFFSET   18
+
 #define DEV_ADDR	0xD0	// 6050 器件地址
 
 //MPU6050内存寄存器地址
@@ -13,7 +21,7 @@
 #define ACCEL_CONFIG 0x1C   //加速计自检、测量范围及高通滤波频率，典型值:0x01(不自检，2G，5Hz)
 
 //加速度相关寄存器
-#define ACCEL_XOUT_H 0x38
+#define ACCEL_XOUT_H 0x3B
 #define ACCEL_XOUT_L 0x3C
 #define ACCEL_YOUT_H 0x3D
 #define ACCEL_YOUT_L 0x3E
