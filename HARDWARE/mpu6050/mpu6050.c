@@ -58,3 +58,39 @@ int16_t MPU6050_Get_Data(uint8_t regAddr) {
 	return data;
 }
 
+u8 MPU_Write_Len(u8 addr,u8 reg,u8 len,u8 *buf) {
+	u8 i;
+	I2C_Start();                 //起始信号
+	I2C_Write_Byte(DEV_ADDR);    //写
+	if (I2C_Read_ACK()) return 1;//等待应答
+	I2C_Write_Byte(addr);        //发送寄存器地址
+	if (I2C_Read_ACK()) return 1;//等待应答
+	for(i=0;i<len;++i) {
+		I2C_Write_Byte(buf[i]);
+		if(I2C_Read_ACK()) {
+			I2C_Stop();
+			return 1;
+		}
+	}
+	I2C_Stop();
+	return 0;
+}
+
+u8 MPU_Read_Len(u8 addr,u8 reg,u8 len,u8 *buf) {
+	u8 i;
+	I2C_Start();
+	I2C_Write_Byte(DEV_ADDR|0);  //写
+	if (I2C_Read_ACK()) return 1;//等待应答
+	I2C_Write_Byte(addr);        //发送寄存器地址
+	if (I2C_Read_ACK()) return 1;//等待应答
+	I2C_Start();
+	I2C_Write_Byte(DEV_ADDR|1);  //读
+	if (I2C_Read_ACK()) return 1;//等待应答
+	for(i=0;i<len;++i) {
+		buf[i]=I2C_Read_Byte();
+		if(i==len-1) I2C_Write_ACK(1);
+		else         I2C_Write_ACK(0);
+	}
+	I2C_Stop();
+	return 0;
+}

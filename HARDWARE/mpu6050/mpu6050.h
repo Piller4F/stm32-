@@ -48,7 +48,8 @@ void MPU6050_Init(void);
 void MPU6050_Write_Reg(uint8_t regAddr, uint8_t regData); //合成16位数据
 uint8_t MPU6050_Read_Reg(uint8_t regAddr);
 int16_t MPU6050_Get_Data(uint8_t regAddr);
-
+u8 MPU_Write_Len(u8 addr,u8 reg,u8 len,u8 *buf);
+u8 MPU_Read_Len(u8 addr,u8 reg,u8 len,u8 *buf);
 
 
 #endif
