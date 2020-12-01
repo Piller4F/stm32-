@@ -58,39 +58,84 @@ int16_t MPU6050_Get_Data(uint8_t regAddr) {
 	return data;
 }
 
-u8 MPU_Write_Len(u8 addr,u8 reg,u8 len,u8 *buf) {
-	u8 i;
-	I2C_Start();                 //起始信号
-	I2C_Write_Byte(DEV_ADDR);    //写
-	if (I2C_Read_ACK()) return 1;//等待应答
-	I2C_Write_Byte(addr);        //发送寄存器地址
-	if (I2C_Read_ACK()) return 1;//等待应答
-	for(i=0;i<len;++i) {
-		I2C_Write_Byte(buf[i]);
-		if(I2C_Read_ACK()) {
-			I2C_Stop();
-			return 1;
-		}
+u8 MPU_Write_Len(u8 addr,u8 reg,u8 len,u8 *buf)
+{
+	u8 i; 
+    I2C_Start(); 
+	I2C_Write_Byte((addr<<1)|0);//发送器件地址+写命令	
+	if(I2C_Read_ACK())	//等待应答
+	{
+		I2C_Stop();		 
+		return 1;		
 	}
-	I2C_Stop();
-	return 0;
+    I2C_Write_Byte(reg);	//写寄存器地址
+    I2C_Read_ACK();		//等待应答
+	for(i=0;i<len;i++)
+	{
+		I2C_Write_Byte(buf[i]);	//发送数据
+		if(I2C_Read_ACK())		//等待ACK
+		{
+			I2C_Stop();	 
+			return 1;		 
+		}		
+	}    
+    I2C_Stop();	 
+	return 0;	
 }
 
-u8 MPU_Read_Len(u8 addr,u8 reg,u8 len,u8 *buf) {
-	u8 i;
-	I2C_Start();
-	I2C_Write_Byte(DEV_ADDR|0);  //写
-	if (I2C_Read_ACK()) return 1;//等待应答
-	I2C_Write_Byte(addr);        //发送寄存器地址
-	if (I2C_Read_ACK()) return 1;//等待应答
-	I2C_Start();
-	I2C_Write_Byte(DEV_ADDR|1);  //读
-	if (I2C_Read_ACK()) return 1;//等待应答
-	for(i=0;i<len;++i) {
-		buf[i]=I2C_Read_Byte();
-		if(i==len-1) I2C_Write_ACK(1);
-		else         I2C_Write_ACK(0);
+u8 MPU_Read_Len(u8 addr,u8 reg,u8 len,u8 *buf)
+{ 
+ 	I2C_Start(); 
+	I2C_Write_Byte((addr<<1)|0);//发送器件地址+写命令	
+	if(I2C_Read_ACK())	//等待应答
+	{
+		I2C_Stop();		 
+		return 1;		
 	}
-	I2C_Stop();
-	return 0;
+    I2C_Write_Byte(reg);	//写寄存器地址
+    I2C_Read_ACK();		//等待应答
+    I2C_Start();
+	I2C_Write_Byte((addr<<1)|1);//发送器件地址+读命令	
+    I2C_Read_ACK();		//等待应答 
+	while(len)
+	{
+		if(len==1){
+			*buf=I2C_Read_Byte();//读数据,发送nACK 
+			I2C_Write_ACK(1);
+		}
+		else {
+			*buf=I2C_Read_Byte();		//读数据,发送ACK  
+			I2C_Write_ACK(0);
+		}
+		len--;
+		buf++; 
+	}    
+    I2C_Stop();	//产生一个停止条件 
+	return 0;	
+}
+
+u8 MPU_Get_Accelerometer(short *ax,short *ay,short *az)
+{
+    u8 buf[6],res;  
+	res=MPU_Read_Len(DEV_ADDR,GYRO_XOUT_H,6,buf);
+	if(res==0)
+	{
+		*ax=((u16)buf[0]<<8)|buf[1];  
+		*ay=((u16)buf[2]<<8)|buf[3];  
+		*az=((u16)buf[4]<<8)|buf[5];
+	} 	
+    return res;;
+}
+
+u8 MPU_Get_Gyroscope(short *gx,short *gy,short *gz)
+{
+    u8 buf[6],res;  
+	res=MPU_Read_Len(DEV_ADDR,ACCEL_XOUT_H,6,buf);
+	if(res==0)
+	{
+		*gx=((u16)buf[0]<<8)|buf[1];  
+		*gy=((u16)buf[2]<<8)|buf[3];  
+		*gz=((u16)buf[4]<<8)|buf[5];
+	} 	
+    return res;;
 }

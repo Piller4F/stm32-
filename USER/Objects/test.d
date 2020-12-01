@@ -9,3 +9,4 @@
 .\objects\test.o: ..\SYSTEM\delay\delay.h
 .\objects\test.o: ..\HARDWARE\iic\iic.h
 .\objects\test.o: ..\HARDWARE\mpu6050\mpu6050.h
+.\objects\test.o: ..\HARDWARE\dmp\inv_mpu.h

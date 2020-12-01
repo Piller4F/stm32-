@@ -23,8 +23,11 @@
 #include "inv_mpu_dmp_motion_driver.h"
 #include "dmpKey.h"
 #include "dmpmap.h"
+#include "usart.h"
+#include "delay.h"
 
-#define MOTION_DRIVER_TARGET_MSP430
+//定义目标板采用MSP430
+#define  MOTION_DRIVER_TARGET_MSP430
 
 /* The following functions must be defined for this platform:
  * i2c_write(unsigned char slave_addr, unsigned char reg_addr,
@@ -37,13 +40,10 @@
 #if defined MOTION_DRIVER_TARGET_MSP430
 //#include "msp430.h"
 //#include "msp430_clock.h"
-#include "stm32f10x.h"
-#include "delay.h"
-
 #define delay_ms    delay_ms
-#define get_ms      get_ms
-#define log_i       printf
-#define log_e       printf
+#define get_ms      mget_ms
+#define log_i 		printf
+#define log_e  		printf
 
 #elif defined EMPL_TARGET_MSP430
 #include "msp430.h"
@@ -489,19 +489,22 @@ struct dmp_s {
     unsigned char packet_length;
 };
 
-static struct dmp_s dmp = {
-//    .tap_cb            = NULL,
+//static struct dmp_s dmp = {
+//    .tap_cb = NULL,
 //    .android_orient_cb = NULL,
-//    .orient            = 0,
-//    .feature_mask      = 0,
-//    .fifo_rate         = 0,
-//    .packet_length     = 0
-	NULL,
-	NULL,
-	0,
-	0,
-	0,
-	0
+//    .orient = 0,
+//    .feature_mask = 0,
+//    .fifo_rate = 0,
+//    .packet_length = 0
+//};
+
+static struct dmp_s dmp={
+  NULL,
+  NULL,
+  0,
+  0,
+  0,
+  0
 };
 
 /**

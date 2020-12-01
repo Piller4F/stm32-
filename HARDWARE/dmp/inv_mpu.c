@@ -23,13 +23,15 @@
 #include <string.h>
 #include <math.h>
 #include "inv_mpu.h"
+#include "inv_mpu_dmp_motion_driver.h"
+#include "mpu6050.h"
+#include "delay.h"
+#include "usart.h"
+#include "iic.h"
 
-#define MOTION_DRIVER_TARGET_MSP430
-#define MPU6050
 
-void get_ms(unsigned long *count) {
-	
-}
+#define MPU6050							//定义我们使用的传感器为MPU6050
+#define MOTION_DRIVER_TARGET_MSP430		//定义驱动部分,采用MSP430的驱动(移植到STM32F1)
 
 /* The following functions must be defined for this platform:
  * i2c_write(unsigned char slave_addr, unsigned char reg_addr,
@@ -48,29 +50,22 @@ void get_ms(unsigned long *count) {
 //#include "msp430_i2c.h"
 //#include "msp430_clock.h"
 //#include "msp430_interrupt.h"
-#include "stm32f10x.h"
-#include "iic.h"
-#include "mpu6050.h"
-#include "delay.h"
 
 #define i2c_write   MPU_Write_Len
 #define i2c_read    MPU_Read_Len
 #define delay_ms    delay_ms
-#define get_ms      get_ms
-
+#define get_ms      mget_ms
 //static inline int reg_int_cb(struct int_param_s *int_param)
 //{
 //    return msp430_reg_int_cb(int_param->cb, int_param->pin, int_param->lp_exit,
 //        int_param->active_low);
 //}
-#define log_i     printf
-#define log_e     printf
+#define log_i 	printf	//打印信息
+#define log_e  	printf	//打印信息
 /* labs is already defined by TI's toolchain. */
 /* fabs is for doubles. fabsf is for floats. */
 #define fabs        fabsf
 #define min(a,b) ((a<b)?a:b)
-
-
 #elif defined EMPL_TARGET_MSP430
 #include "msp430.h"
 #include "msp430_i2c.h"
@@ -136,11 +131,9 @@ static inline int reg_int_cb(struct int_param_s *int_param)
  * #define AK8963_SECONDARY
  */
 #if defined MPU9150
-
 #ifndef MPU6050
 #define MPU6050
-#endif     /* #ifndef MPU6050 */
-
+#endif                          /* #ifndef MPU6050 */
 #if defined AK8963_SECONDARY
 #error "MPU9150 and AK8963_SECONDARY cannot both be defined."
 #elif !defined AK8975_SECONDARY /* #if defined AK8963_SECONDARY */
@@ -456,7 +449,7 @@ enum lp_accel_rate_e {
 #endif
 
 #if defined MPU6050
-const struct gyro_reg_s reg = {
+//const struct gyro_reg_s reg = {
 //    .who_am_i       = 0x75,
 //    .rate_div       = 0x19,
 //    .lpf            = 0x1A,
@@ -484,49 +477,52 @@ const struct gyro_reg_s reg = {
 //    .bank_sel       = 0x6D,
 //    .mem_start_addr = 0x6E,
 //    .prgm_start_h   = 0x70
-	0x75,
-	0x19,
-	0x1A,
-	0x0C,
-	0x6A,
-	0x23,
-	0x1B,
-	0x1C,
-	0x1F,
-	0x20,
-	0x72,
-	0x74,
-	0x43,
-	0x3B,
-	0x41,
-	0x38,
-	0x39,
-	0x3A,
-	0x6B,
-	0x6C,
-	0x37,
-	0x6F,
-	0x06,
-	0x24,
-	0x6D,
-	0x6E,
-	0x70
-#ifdef AK89xx_SECONDARY
-    ,.raw_compass   = 0x49,
-    .yg_offs_tc     = 0x01,
-    .s0_addr        = 0x25,
-    .s0_reg         = 0x26,
-    .s0_ctrl        = 0x27,
-    .s1_addr        = 0x28,
-    .s1_reg         = 0x29,
-    .s1_ctrl        = 0x2A,
-    .s4_ctrl        = 0x34,
-    .s0_do          = 0x63,
-    .s1_do          = 0x64,
-    .i2c_delay_ctrl = 0x67
-#endif
+//#ifdef AK89xx_SECONDARY
+//    ,.raw_compass   = 0x49,
+//    .yg_offs_tc     = 0x01,
+//    .s0_addr        = 0x25,
+//    .s0_reg         = 0x26,
+//    .s0_ctrl        = 0x27,
+//    .s1_addr        = 0x28,
+//    .s1_reg         = 0x29,
+//    .s1_ctrl        = 0x2A,
+//    .s4_ctrl        = 0x34,
+//    .s0_do          = 0x63,
+//    .s1_do          = 0x64,
+//    .i2c_delay_ctrl = 0x67
+//#endif
+//};
+const struct gyro_reg_s reg = {
+0x75,  //who_am_i
+0x19,  //rate_div
+0x1A,  //lpf
+0x0C,  //prod_id
+0x6A,  //user_ctrl
+0x23,  //fifo_en
+0x1B,  //gyro_cfg
+0x1C,  //accel_cfg
+0x1F,  // motion_thr
+0x20,  // motion_dur
+0x72,  // fifo_count_h
+0x74,  // fifo_r_w
+0x43,  // raw_gyro
+0x3B,  // raw_accel
+0x41,  // temp
+0x38,  // int_enable
+0x39,  //  dmp_int_status
+0x3A,  //  int_status
+0x6B,  // pwr_mgmt_1
+0x6C,  // pwr_mgmt_2
+0x37,  // int_pin_cfg
+0x6F,  // mem_r_w
+0x06,  // accel_offs
+0x24,  // i2c_mst
+0x6D,  // bank_sel
+0x6E,  // mem_start_addr
+0x70   // prgm_start_h
 };
-const struct hw_s hw = {
+
+//const struct hw_s hw = {
 //    .addr           = 0x68,
 //    .max_fifo       = 1024,
 //    .num_reg        = 118,
@@ -536,15 +532,17 @@ const struct hw_s hw = {
 //#if defined AK89xx_SECONDARY
 //    ,.compass_fsr    = AK89xx_FSR
 //#endif
-	0x68,
-	1024,
-	118,
-	340,
-	-521,
-	256
+//};
+const struct hw_s hw={
+  0x68,	 //addr
+  1024,	 //max_fifo
+  118,	 //num_reg
+  340,	 //temp_sens
+  -521,	 //temp_offset
+  256	 //bank_size
 };
 
-const struct test_s test = {
+//const struct test_s test = {
 //    .gyro_sens      = 32768/250,
 //    .accel_sens     = 32768/16,
 //    .reg_rate_div   = 0,    /* 1kHz. */
@@ -559,31 +557,37 @@ const struct test_s test = {
 //    .min_g          = 0.3f,
 //    .max_g          = 0.95f,
 //    .max_accel_var  = 0.14f
-	32768/250,
-	32768/16,
-	0,    /* 1kHz. */
-	1,    /* 188Hz. */
-	0,    /* 250dps. */
-	0x18, /* 16g. */
-	50,
-	5,    /* 5% */
-	10.f,
-	105.f,
-	0.14f,
-	0.3f,
-	0.95f,
-	0.14f
+//};
+const struct test_s test={
+32768/250,		 //gyro_sens
+32768/16,		 //	accel_sens
+0,				 //	reg_rate_div
+1,				//	reg_lpf
+0,				 //	reg_gyro_fsr
+0x18,			//	reg_accel_fsr
+50,				//	wait_ms
+5,				//	packet_thresh
+10.0f,			 //	min_dps
+105.0f,			 //	max_dps
+0.14f,			//	max_gyro_var
+0.3f,		   //	min_g
+0.95f,		   //	max_g
+0.14f		   //	max_accel_var
 };
 
-static struct gyro_state_s st = {
-//    .reg  = &reg,
-//    .hw   = &hw,
+//static struct gyro_state_s st = {
+//    .reg = &reg,
+//    .hw = &hw,
 //    .test = &test
-	&reg,
-	&hw,
-	{0},
-	&test
+//};
+static struct gyro_state_s st={
+  &reg,
+  &hw,
+  {0},
+  &test
 };
+
+
 #elif defined MPU6500
 const struct gyro_reg_s reg = {
     .who_am_i       = 0x75,
@@ -2423,110 +2427,110 @@ int mpu_get_dmp_state(unsigned char *enabled)
 
 
 /* This initialization is similar to the one in ak8975.c. */
-//static int setup_compass(void)
-//{
-//#ifdef AK89xx_SECONDARY
-//    unsigned char data[4], akm_addr;
+int setup_compass(void)
+{
+#ifdef AK89xx_SECONDARY
+    unsigned char data[4], akm_addr;
 
-//    mpu_set_bypass(1);
+    mpu_set_bypass(1);
 
-//    /* Find compass. Possible addresses range from 0x0C to 0x0F. */
-//    for (akm_addr = 0x0C; akm_addr <= 0x0F; akm_addr++) {
-//        int result;
-//        result = i2c_read(akm_addr, AKM_REG_WHOAMI, 1, data);
-//        if (!result && (data[0] == AKM_WHOAMI))
-//            break;
-//    }
+    /* Find compass. Possible addresses range from 0x0C to 0x0F. */
+    for (akm_addr = 0x0C; akm_addr <= 0x0F; akm_addr++) {
+        int result;
+        result = i2c_read(akm_addr, AKM_REG_WHOAMI, 1, data);
+        if (!result && (data[0] == AKM_WHOAMI))
+            break;
+    }
 
-//    if (akm_addr > 0x0F) {
-//        /* TODO: Handle this case in all compass-related functions. */
-//        log_e("Compass not found.\n");
-//        return -1;
-//    }
+    if (akm_addr > 0x0F) {
+        /* TODO: Handle this case in all compass-related functions. */
+        log_e("Compass not found.\n");
+        return -1;
+    }
 
-//    st.chip_cfg.compass_addr = akm_addr;
+    st.chip_cfg.compass_addr = akm_addr;
 
-//    data[0] = AKM_POWER_DOWN;
-//    if (i2c_write(st.chip_cfg.compass_addr, AKM_REG_CNTL, 1, data))
-//        return -1;
-//    delay_ms(1);
+    data[0] = AKM_POWER_DOWN;
+    if (i2c_write(st.chip_cfg.compass_addr, AKM_REG_CNTL, 1, data))
+        return -1;
+    delay_ms(1);
 
-//    data[0] = AKM_FUSE_ROM_ACCESS;
-//    if (i2c_write(st.chip_cfg.compass_addr, AKM_REG_CNTL, 1, data))
-//        return -1;
-//    delay_ms(1);
+    data[0] = AKM_FUSE_ROM_ACCESS;
+    if (i2c_write(st.chip_cfg.compass_addr, AKM_REG_CNTL, 1, data))
+        return -1;
+    delay_ms(1);
 
-//    /* Get sensitivity adjustment data from fuse ROM. */
-//    if (i2c_read(st.chip_cfg.compass_addr, AKM_REG_ASAX, 3, data))
-//        return -1;
-//    st.chip_cfg.mag_sens_adj[0] = (long)data[0] + 128;
-//    st.chip_cfg.mag_sens_adj[1] = (long)data[1] + 128;
-//    st.chip_cfg.mag_sens_adj[2] = (long)data[2] + 128;
+    /* Get sensitivity adjustment data from fuse ROM. */
+    if (i2c_read(st.chip_cfg.compass_addr, AKM_REG_ASAX, 3, data))
+        return -1;
+    st.chip_cfg.mag_sens_adj[0] = (long)data[0] + 128;
+    st.chip_cfg.mag_sens_adj[1] = (long)data[1] + 128;
+    st.chip_cfg.mag_sens_adj[2] = (long)data[2] + 128;
 
-//    data[0] = AKM_POWER_DOWN;
-//    if (i2c_write(st.chip_cfg.compass_addr, AKM_REG_CNTL, 1, data))
-//        return -1;
-//    delay_ms(1);
+    data[0] = AKM_POWER_DOWN;
+    if (i2c_write(st.chip_cfg.compass_addr, AKM_REG_CNTL, 1, data))
+        return -1;
+    delay_ms(1);
 
-//    mpu_set_bypass(0);
+    mpu_set_bypass(0);
 
-//    /* Set up master mode, master clock, and ES bit. */
-//    data[0] = 0x40;
-//    if (i2c_write(st.hw->addr, st.reg->i2c_mst, 1, data))
-//        return -1;
+    /* Set up master mode, master clock, and ES bit. */
+    data[0] = 0x40;
+    if (i2c_write(st.hw->addr, st.reg->i2c_mst, 1, data))
+        return -1;
 
-//    /* Slave 0 reads from AKM data registers. */
-//    data[0] = BIT_I2C_READ | st.chip_cfg.compass_addr;
-//    if (i2c_write(st.hw->addr, st.reg->s0_addr, 1, data))
-//        return -1;
+    /* Slave 0 reads from AKM data registers. */
+    data[0] = BIT_I2C_READ | st.chip_cfg.compass_addr;
+    if (i2c_write(st.hw->addr, st.reg->s0_addr, 1, data))
+        return -1;
 
-//    /* Compass reads start at this register. */
-//    data[0] = AKM_REG_ST1;
-//    if (i2c_write(st.hw->addr, st.reg->s0_reg, 1, data))
-//        return -1;
+    /* Compass reads start at this register. */
+    data[0] = AKM_REG_ST1;
+    if (i2c_write(st.hw->addr, st.reg->s0_reg, 1, data))
+        return -1;
 
-//    /* Enable slave 0, 8-byte reads. */
-//    data[0] = BIT_SLAVE_EN | 8;
-//    if (i2c_write(st.hw->addr, st.reg->s0_ctrl, 1, data))
-//        return -1;
+    /* Enable slave 0, 8-byte reads. */
+    data[0] = BIT_SLAVE_EN | 8;
+    if (i2c_write(st.hw->addr, st.reg->s0_ctrl, 1, data))
+        return -1;
 
-//    /* Slave 1 changes AKM measurement mode. */
-//    data[0] = st.chip_cfg.compass_addr;
-//    if (i2c_write(st.hw->addr, st.reg->s1_addr, 1, data))
-//        return -1;
+    /* Slave 1 changes AKM measurement mode. */
+    data[0] = st.chip_cfg.compass_addr;
+    if (i2c_write(st.hw->addr, st.reg->s1_addr, 1, data))
+        return -1;
 
-//    /* AKM measurement mode register. */
-//    data[0] = AKM_REG_CNTL;
-//    if (i2c_write(st.hw->addr, st.reg->s1_reg, 1, data))
-//        return -1;
+    /* AKM measurement mode register. */
+    data[0] = AKM_REG_CNTL;
+    if (i2c_write(st.hw->addr, st.reg->s1_reg, 1, data))
+        return -1;
 
-//    /* Enable slave 1, 1-byte writes. */
-//    data[0] = BIT_SLAVE_EN | 1;
-//    if (i2c_write(st.hw->addr, st.reg->s1_ctrl, 1, data))
-//        return -1;
+    /* Enable slave 1, 1-byte writes. */
+    data[0] = BIT_SLAVE_EN | 1;
+    if (i2c_write(st.hw->addr, st.reg->s1_ctrl, 1, data))
+        return -1;
 
-//    /* Set slave 1 data. */
-//    data[0] = AKM_SINGLE_MEASUREMENT;
-//    if (i2c_write(st.hw->addr, st.reg->s1_do, 1, data))
-//        return -1;
+    /* Set slave 1 data. */
+    data[0] = AKM_SINGLE_MEASUREMENT;
+    if (i2c_write(st.hw->addr, st.reg->s1_do, 1, data))
+        return -1;
 
-//    /* Trigger slave 0 and slave 1 actions at each sample. */
-//    data[0] = 0x03;
-//    if (i2c_write(st.hw->addr, st.reg->i2c_delay_ctrl, 1, data))
-//        return -1;
+    /* Trigger slave 0 and slave 1 actions at each sample. */
+    data[0] = 0x03;
+    if (i2c_write(st.hw->addr, st.reg->i2c_delay_ctrl, 1, data))
+        return -1;
 
-//#ifdef MPU9150
-//    /* For the MPU9150, the auxiliary I2C bus needs to be set to VDD. */
-//    data[0] = BIT_I2C_MST_VDDIO;
-//    if (i2c_write(st.hw->addr, st.reg->yg_offs_tc, 1, data))
-//        return -1;
-//#endif
+#ifdef MPU9150
+    /* For the MPU9150, the auxiliary I2C bus needs to be set to VDD. */
+    data[0] = BIT_I2C_MST_VDDIO;
+    if (i2c_write(st.hw->addr, st.reg->yg_offs_tc, 1, data))
+        return -1;
+#endif
 
-//    return 0;
-//#else
-//    return -1;
-//#endif
-//}
+    return 0;
+#else
+    return -1;
+#endif
+}
 
 /**
  *  @brief      Read raw compass data.
@@ -2848,8 +2852,192 @@ lp_int_restore:
     st.chip_cfg.int_motion_only = 0;
     return 0;
 }
+//////////////////////////////////////////////////////////////////////////////////
+//添加的代码部分 
+//////////////////////////////////////////////////////////////////////////////////	 
+//本程序只供学习使用，未经作者许可，不得用于其它任何用途
+//ALIENTEK STM32开发板 
+//MPU6050 DMP 驱动代码	   
+//正点原子@ALIENTEK
+//技术论坛:www.openedv.com
+//创建日期:2015/1/17
+//版本：V1.0
+//版权所有，盗版必究。
+//Copyright(C) 广州市星翼电子科技有限公司 2009-2019
+//All rights reserved									  
+////////////////////////////////////////////////////////////////////////////////// 
 
-/**
- *  @}
- */
+//q30格式,long转float时的除数.
+#define q30  1073741824.0f
+
+//陀螺仪方向设置
+static signed char gyro_orientation[9] = { 1, 0, 0,
+                                           0, 1, 0,
+                                           0, 0, 1};
+//MPU6050自测试
+//返回值:0,正常
+//    其他,失败
+u8 run_self_test(void)
+{
+	int result;
+	//char test_packet[4] = {0};
+	long gyro[3], accel[3]; 
+	result = mpu_run_self_test(gyro, accel);
+	if (result == 0x3) 
+	{
+		/* Test passed. We can trust the gyro data here, so let's push it down
+		* to the DMP.
+		*/
+		float sens;
+		unsigned short accel_sens;
+		mpu_get_gyro_sens(&sens);
+		gyro[0] = (long)(gyro[0] * sens);
+		gyro[1] = (long)(gyro[1] * sens);
+		gyro[2] = (long)(gyro[2] * sens);
+		dmp_set_gyro_bias(gyro);
+		mpu_get_accel_sens(&accel_sens);
+		accel[0] *= accel_sens;
+		accel[1] *= accel_sens;
+		accel[2] *= accel_sens;
+		dmp_set_accel_bias(accel);
+		return 0;
+	}else return 1;
+}
+//陀螺仪方向控制
+unsigned short inv_orientation_matrix_to_scalar(
+    const signed char *mtx)
+{
+    unsigned short scalar; 
+    /*
+       XYZ  010_001_000 Identity Matrix
+       XZY  001_010_000
+       YXZ  010_000_001
+       YZX  000_010_001
+       ZXY  001_000_010
+       ZYX  000_001_010
+     */
+
+    scalar = inv_row_2_scale(mtx);
+    scalar |= inv_row_2_scale(mtx + 3) << 3;
+    scalar |= inv_row_2_scale(mtx + 6) << 6;
+
+
+    return scalar;
+}
+//方向转换
+unsigned short inv_row_2_scale(const signed char *row)
+{
+    unsigned short b;
+
+    if (row[0] > 0)
+        b = 0;
+    else if (row[0] < 0)
+        b = 4;
+    else if (row[1] > 0)
+        b = 1;
+    else if (row[1] < 0)
+        b = 5;
+    else if (row[2] > 0)
+        b = 2;
+    else if (row[2] < 0)
+        b = 6;
+    else
+        b = 7;      // error
+    return b;
+}
+//空函数,未用到.
+void mget_ms(unsigned long *time)
+{
+
+}
+//mpu6050,dmp初始化
+//返回值:0,正常
+//    其他,失败
+u8 mpu_dmp_init(void)
+{
+	u8 res=0;
+	I2C_Init(); //初始化IIC总线
+	if(mpu_init()==0)	//初始化MPU6050
+	{	 
+		res=mpu_set_sensors(INV_XYZ_GYRO|INV_XYZ_ACCEL);//设置所需要的传感器
+		if(res)return 1; 
+		res=mpu_configure_fifo(INV_XYZ_GYRO|INV_XYZ_ACCEL);//设置FIFO
+		if(res)return 2; 
+		res=mpu_set_sample_rate(DEFAULT_MPU_HZ);	//设置采样率
+		if(res)return 3; 
+		res=dmp_load_motion_driver_firmware();		//加载dmp固件
+		if(res)return 4; 
+		res=dmp_set_orientation(inv_orientation_matrix_to_scalar(gyro_orientation));//设置陀螺仪方向
+		if(res)return 5; 
+		res=dmp_enable_feature(DMP_FEATURE_6X_LP_QUAT|DMP_FEATURE_TAP|	//设置dmp功能
+		    DMP_FEATURE_ANDROID_ORIENT|DMP_FEATURE_SEND_RAW_ACCEL|DMP_FEATURE_SEND_CAL_GYRO|
+		    DMP_FEATURE_GYRO_CAL);
+		if(res)return 6; 
+		res=dmp_set_fifo_rate(DEFAULT_MPU_HZ);	//设置DMP输出速率(最大不超过200Hz)
+		if(res)return 7;   
+		res=run_self_test();		//自检
+		if(res)return 8;    
+		res=mpu_set_dmp_state(1);	//使能DMP
+		if(res)return 9;     
+	}else return 10;
+	return 0;
+}
+//得到dmp处理后的数据(注意,本函数需要比较多堆栈,局部变量有点多)
+//pitch:俯仰角 精度:0.1°   范围:-90.0° <---> +90.0°
+//roll:横滚角  精度:0.1°   范围:-180.0°<---> +180.0°
+//yaw:航向角   精度:0.1°   范围:-180.0°<---> +180.0°
+//返回值:0,正常
+//    其他,失败
+u8 mpu_dmp_get_data(float *pitch,float *roll,float *yaw)
+{
+	float q0=1.0f,q1=0.0f,q2=0.0f,q3=0.0f;
+	unsigned long sensor_timestamp;
+	short gyro[3], accel[3], sensors;
+	unsigned char more;
+	long quat[4]; 
+	if(dmp_read_fifo(gyro, accel, quat, &sensor_timestamp, &sensors,&more))return 1;	 
+	/* Gyro and accel data are written to the FIFO by the DMP in chip frame and hardware units.
+	 * This behavior is convenient because it keeps the gyro and accel outputs of dmp_read_fifo and mpu_read_fifo consistent.
+	**/
+	/*if (sensors & INV_XYZ_GYRO )
+	send_packet(PACKET_TYPE_GYRO, gyro);
+	if (sensors & INV_XYZ_ACCEL)
+	send_packet(PACKET_TYPE_ACCEL, accel); */
+	/* Unlike gyro and accel, quaternions are written to the FIFO in the body frame, q30.
+	 * The orientation is set by the scalar passed to dmp_set_orientation during initialization. 
+	**/
+	if(sensors&INV_WXYZ_QUAT) 
+	{
+		q0 = quat[0] / q30;	//q30格式转换为浮点数
+		q1 = quat[1] / q30;
+		q2 = quat[2] / q30;
+		q3 = quat[3] / q30; 
+		//计算得到俯仰角/横滚角/航向角
+		*pitch = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3;	// pitch
+		*roll  = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3;	// roll
+		*yaw   = atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * 57.3;	//yaw
+	}else return 2;
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
