@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HARDWARE\iic;..\HARDWARE\mpu6050;..\HARDWARE\mpu6050;..\HARDWARE\dmp</IncludePath>
+              <IncludePath>..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HARDWARE\iic;..\HARDWARE\mpu6050;..\HARDWARE\mpu6050;..\HARDWARE\dmp;..\HARDWARE\hc06;..\HARDWARE\hc06</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -457,6 +457,11 @@
               <FileName>inv_mpu_dmp_motion_driver.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\dmp\inv_mpu_dmp_motion_driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc06.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\hc06\hc06.c</FilePath>
             </File>
           </Files>
         </Group>

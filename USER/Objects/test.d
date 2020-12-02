@@ -10,3 +10,4 @@
 .\objects\test.o: ..\HARDWARE\iic\iic.h
 .\objects\test.o: ..\HARDWARE\mpu6050\mpu6050.h
 .\objects\test.o: ..\HARDWARE\dmp\inv_mpu.h
+.\objects\test.o: ..\HARDWARE\hc06\hc06.h
