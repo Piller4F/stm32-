@@ -1,0 +1,102 @@
+Dependencies for Project 'test', Target 'Target 1': (DO NOT MODIFY !)
+F (.\test.c)(0x5FE8CFA8)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\iic -I..\HARDWARE\mpu6050 -I..\HARDWARE\dmp -I..\HARDWARE\usart -I..\HARDWARE\usart-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE\Device\STM32F103C8-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\MDK5\ARM\CMSIS\Include-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F10X_MD -DSTM32F10X_MD-o .\objects\test.o --omf_browse .\objects\test.crf --depend .\objects\test.d)
+I (..\SYSTEM\sys\sys.h)(0x5FC764D1)
+I (..\SYSTEM\sys\stm32f10x.h)(0x5FC764D1)
+I (..\SYSTEM\sys\core_cm3.h)(0x5FC764D1)
+I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (..\SYSTEM\sys\system_stm32f10x.h)(0x5FC764D1)
+I (..\SYSTEM\usart\usart.h)(0x5FC764D1)
+I (D:\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
+I (..\HARDWARE\iic\iic.h)(0x5FC764D1)
+I (..\HARDWARE\mpu6050\mpu6050.h)(0x5FDCB75D)
+I (..\SYSTEM\delay\delay.h)(0x5FC764D1)
+I (..\HARDWARE\dmp\inv_mpu.h)(0x55331516)
+I (..\HARDWARE\dmp\inv_mpu_dmp_motion_driver.h)(0x50CA9A0C)
+I (..\HARDWARE\usart\usart2.h)(0x5FD76F99)
+I (D:\MDK5\ARM\ARMCC\include\string.h)(0x5475F300)
+F (..\SYSTEM\delay\delay.c)(0x5FC764D1)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\iic -I..\HARDWARE\mpu6050 -I..\HARDWARE\dmp -I..\HARDWARE\usart -I..\HARDWARE\usart-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE\Device\STM32F103C8-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\MDK5\ARM\CMSIS\Include-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F10X_MD -DSTM32F10X_MD-o .\objects\delay.o --omf_browse .\objects\delay.crf --depend .\objects\delay.d)
+I (..\SYSTEM\delay\delay.h)(0x5FC764D1)
+I (..\SYSTEM\sys\sys.h)(0x5FC764D1)
+I (..\SYSTEM\sys\stm32f10x.h)(0x5FC764D1)
+I (..\SYSTEM\sys\core_cm3.h)(0x5FC764D1)
+I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (..\SYSTEM\sys\system_stm32f10x.h)(0x5FC764D1)
+F (..\SYSTEM\sys\sys.c)(0x5FC764D1)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\iic -I..\HARDWARE\mpu6050 -I..\HARDWARE\dmp -I..\HARDWARE\usart -I..\HARDWARE\usart-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE\Device\STM32F103C8-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\MDK5\ARM\CMSIS\Include-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F10X_MD -DSTM32F10X_MD-o .\objects\sys.o --omf_browse .\objects\sys.crf --depend .\objects\sys.d)
+I (..\SYSTEM\sys\sys.h)(0x5FC764D1)
+I (..\SYSTEM\sys\stm32f10x.h)(0x5FC764D1)
+I (..\SYSTEM\sys\core_cm3.h)(0x5FC764D1)
+I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (..\SYSTEM\sys\system_stm32f10x.h)(0x5FC764D1)
+F (..\SYSTEM\usart\usart.c)(0x5FC764D1)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\iic -I..\HARDWARE\mpu6050 -I..\HARDWARE\dmp -I..\HARDWARE\usart -I..\HARDWARE\usart-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE\Device\STM32F103C8-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\MDK5\ARM\CMSIS\Include-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F10X_MD -DSTM32F10X_MD-o .\objects\usart.o --omf_browse .\objects\usart.crf --depend .\objects\usart.d)
+I (..\SYSTEM\usart\usart.h)(0x5FC764D1)
+I (..\SYSTEM\sys\sys.h)(0x5FC764D1)
+I (..\SYSTEM\sys\stm32f10x.h)(0x5FC764D1)
+I (..\SYSTEM\sys\core_cm3.h)(0x5FC764D1)
+I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (..\SYSTEM\sys\system_stm32f10x.h)(0x5FC764D1)
+I (D:\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
+F (..\HARDWARE\iic\iic.c)(0x5FCB84E9)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\iic -I..\HARDWARE\mpu6050 -I..\HARDWARE\dmp -I..\HARDWARE\usart -I..\HARDWARE\usart-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE\Device\STM32F103C8-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\MDK5\ARM\CMSIS\Include-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F10X_MD -DSTM32F10X_MD-o .\objects\iic.o --omf_browse .\objects\iic.crf --depend .\objects\iic.d)
+I (..\HARDWARE\iic\iic.h)(0x5FC764D1)
+I (..\SYSTEM\sys\sys.h)(0x5FC764D1)
+I (..\SYSTEM\sys\stm32f10x.h)(0x5FC764D1)
+I (..\SYSTEM\sys\core_cm3.h)(0x5FC764D1)
+I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (..\SYSTEM\sys\system_stm32f10x.h)(0x5FC764D1)
+F (..\HARDWARE\mpu6050\mpu6050.c)(0x5FDCB6B3)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\iic -I..\HARDWARE\mpu6050 -I..\HARDWARE\dmp -I..\HARDWARE\usart -I..\HARDWARE\usart-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE\Device\STM32F103C8-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\MDK5\ARM\CMSIS\Include-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F10X_MD -DSTM32F10X_MD-o .\objects\mpu6050.o --omf_browse .\objects\mpu6050.crf --depend .\objects\mpu6050.d)
+I (..\HARDWARE\mpu6050\mpu6050.h)(0x5FDCB75D)
+I (..\SYSTEM\sys\sys.h)(0x5FC764D1)
+I (..\SYSTEM\sys\stm32f10x.h)(0x5FC764D1)
+I (..\SYSTEM\sys\core_cm3.h)(0x5FC764D1)
+I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (..\SYSTEM\sys\system_stm32f10x.h)(0x5FC764D1)
+I (..\HARDWARE\iic\iic.h)(0x5FC764D1)
+F (..\HARDWARE\dmp\inv_mpu.c)(0x5FCC919A)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\iic -I..\HARDWARE\mpu6050 -I..\HARDWARE\dmp -I..\HARDWARE\usart -I..\HARDWARE\usart-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE\Device\STM32F103C8-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\MDK5\ARM\CMSIS\Include-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F10X_MD -DSTM32F10X_MD-o .\objects\inv_mpu.o --omf_browse .\objects\inv_mpu.crf --depend .\objects\inv_mpu.d)
+I (D:\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
+I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (D:\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
+I (D:\MDK5\ARM\ARMCC\include\string.h)(0x5475F300)
+I (D:\MDK5\ARM\ARMCC\include\math.h)(0x5475F2FE)
+I (..\HARDWARE\dmp\inv_mpu.h)(0x55331516)
+I (..\SYSTEM\sys\stm32f10x.h)(0x5FC764D1)
+I (..\SYSTEM\sys\core_cm3.h)(0x5FC764D1)
+I (..\SYSTEM\sys\system_stm32f10x.h)(0x5FC764D1)
+I (..\HARDWARE\dmp\inv_mpu_dmp_motion_driver.h)(0x50CA9A0C)
+I (..\HARDWARE\mpu6050\mpu6050.h)(0x5FDCB75D)
+I (..\SYSTEM\sys\sys.h)(0x5FC764D1)
+I (..\SYSTEM\delay\delay.h)(0x5FC764D1)
+I (..\SYSTEM\usart\usart.h)(0x5FC764D1)
+I (..\HARDWARE\iic\iic.h)(0x5FC764D1)
+F (..\HARDWARE\dmp\inv_mpu_dmp_motion_driver.c)(0x536C5786)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\iic -I..\HARDWARE\mpu6050 -I..\HARDWARE\dmp -I..\HARDWARE\usart -I..\HARDWARE\usart-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE\Device\STM32F103C8-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\MDK5\ARM\CMSIS\Include-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F10X_MD -DSTM32F10X_MD-o .\objects\inv_mpu_dmp_motion_driver.o --omf_browse .\objects\inv_mpu_dmp_motion_driver.crf --depend .\objects\inv_mpu_dmp_motion_driver.d)
+I (D:\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
+I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (D:\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
+I (D:\MDK5\ARM\ARMCC\include\string.h)(0x5475F300)
+I (D:\MDK5\ARM\ARMCC\include\math.h)(0x5475F2FE)
+I (..\HARDWARE\dmp\inv_mpu.h)(0x55331516)
+I (..\SYSTEM\sys\stm32f10x.h)(0x5FC764D1)
+I (..\SYSTEM\sys\core_cm3.h)(0x5FC764D1)
+I (..\SYSTEM\sys\system_stm32f10x.h)(0x5FC764D1)
+I (..\HARDWARE\dmp\inv_mpu_dmp_motion_driver.h)(0x50CA9A0C)
+I (..\HARDWARE\dmp\dmpKey.h)(0x50CA9A0C)
+I (..\HARDWARE\dmp\dmpmap.h)(0x50CA9A0C)
+I (..\SYSTEM\usart\usart.h)(0x5FC764D1)
+I (..\SYSTEM\sys\sys.h)(0x5FC764D1)
+I (..\SYSTEM\delay\delay.h)(0x5FC764D1)
+F (..\HARDWARE\usart\usart2.c)(0x5FE8CF6A)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\iic -I..\HARDWARE\mpu6050 -I..\HARDWARE\dmp -I..\HARDWARE\usart -I..\HARDWARE\usart-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE\Device\STM32F103C8-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\MDK5\ARM\CMSIS\Include-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F10X_MD -DSTM32F10X_MD-o .\objects\usart2.o --omf_browse .\objects\usart2.crf --depend .\objects\usart2.d)
+I (..\SYSTEM\delay\delay.h)(0x5FC764D1)
+I (..\SYSTEM\sys\sys.h)(0x5FC764D1)
+I (..\SYSTEM\sys\stm32f10x.h)(0x5FC764D1)
+I (..\SYSTEM\sys\core_cm3.h)(0x5FC764D1)
+I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (..\SYSTEM\sys\system_stm32f10x.h)(0x5FC764D1)
+I (..\HARDWARE\usart\usart2.h)(0x5FD76F99)
+I (D:\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
+I (D:\MDK5\ARM\ARMCC\include\string.h)(0x5475F300)
+F (..\HARDWARE\usart\usart2.h)(0x5FD76F99)()
+F (RTE\Device\STM32F103C8\RTE_Device.h)(0x5927DFA6)()
+F (RTE\Device\STM32F103C8\startup_stm32f10x_md.s)(0x5825386C)(--cpu Cortex-M3 -g --apcs=interwork -I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE\Device\STM32F103C8-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\MDK5\ARM\CMSIS\Include-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5--pd "__UVISION_VERSION SETA 514" --pd "_RTE_ SETA 1" --pd "STM32F10X_MD SETA 1"--list .\listings\startup_stm32f10x_md.lst --xref -o .\objects\startup_stm32f10x_md.o --depend .\objects\startup_stm32f10x_md.d)
+F (RTE\Device\STM32F103C8\system_stm32f10x.c)(0x5825386C)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\iic -I..\HARDWARE\mpu6050 -I..\HARDWARE\dmp -I..\HARDWARE\usart -I..\HARDWARE\usart-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE-I D:\Desktop\基于手势识别的智能小车\代码\MASTER\USR\RTE\Device\STM32F103C8-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\MDK5\ARM\CMSIS\Include-I D:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F10X_MD -DSTM32F10X_MD-o .\objects\system_stm32f10x.o --omf_browse .\objects\system_stm32f10x.crf --depend .\objects\system_stm32f10x.d)
+I (..\SYSTEM\sys\stm32f10x.h)(0x5FC764D1)
+I (..\SYSTEM\sys\core_cm3.h)(0x5FC764D1)
+I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (..\SYSTEM\sys\system_stm32f10x.h)(0x5FC764D1)

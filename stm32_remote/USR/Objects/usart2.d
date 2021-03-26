@@ -1,0 +1,10 @@
+.\objects\usart2.o: ..\HARDWARE\usart\usart2.c
+.\objects\usart2.o: ..\SYSTEM\delay\delay.h
+.\objects\usart2.o: ..\SYSTEM\sys\sys.h
+.\objects\usart2.o: ..\SYSTEM\sys\stm32f10x.h
+.\objects\usart2.o: ..\SYSTEM\sys\core_cm3.h
+.\objects\usart2.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\usart2.o: ..\SYSTEM\sys\system_stm32f10x.h
+.\objects\usart2.o: ..\HARDWARE\usart\usart2.h
+.\objects\usart2.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\usart2.o: D:\MDK5\ARM\ARMCC\Bin\..\include\string.h
